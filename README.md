@@ -64,13 +64,19 @@ HTTPS 下载（含重定向约束），30 秒超时，最多三次尝试，间�
 - 上游 SHA-256：`c9f7f4e2adbe38433e904f72d010a6d08a84e451ef5b9722183940c68240cabd`
 - 产物 SHA-256：`19111b518f282996c4d4f7d50e21ce34c982f946df21156bce0aa8f2bf458814`
 
-远程发布验收将在首次实际 Actions 与匿名下载完成后写入。
+2026-10-21 已完成公开发布：[手动 Actions 成功运行](https://github.com/sweet0416/shadowrocket-personal-rules/actions/runs/39535947690)，默认分支 `main`，工作流 `active`。本次远程重新下载构建与本地产物相同，发布步骤确认无变化，因此没有制造额外产物提交。
+
+已检查产物发布提交：[`7cf0a031a0d88e9514fa029f3345bfdbd51afbff`](https://github.com/sweet0416/shadowrocket-personal-rules/commit/7cf0a031a0d88e9514fa029f3345bfdbd51afbff)。匿名下载 main 固定 Raw 与该提交 Git blob 的完整字节、SHA-256 一致；固定版本 Raw 也已匿名下载核对。
+
+**固定版本回滚 URL**：https://raw.githubusercontent.com/sweet0416/shadowrocket-personal-rules/7cf0a031a0d88e9514fa029f3345bfdbd51afbff/dist/shadowrocket_personal.conf
+
+后续上游自动更新后 main 的哈希和字节数可以变化；上述是本次验收快照。回滚 URL 固定本次产物，不随 main 更新。
 
 | 验收项 | 状态 |
 | --- | --- |
 | BUILD_AND_TESTS | PASS（本地 unittest，包括格式组合和下载失败保护） |
 | UPSTREAM_PRESERVATION | PASS（真实上游，精确字节恢复） |
-| GITHUB_ACTIONS_RUN | PENDING |
-| PUBLIC_RAW_DOWNLOAD | PENDING |
+| GITHUB_ACTIONS_RUN | PASS（实际 workflow_dispatch 最终成功） |
+| PUBLIC_RAW_DOWNLOAD | PASS（匿名完整下载，匹配发布提交 SHA-256） |
 | SHADOWROCKET_IMPORT | PENDING_USER_CHECK |
 | MUSE_RUNTIME | PENDING_USER_CHECK |
