@@ -1,0 +1,4 @@
+# Personal proxy rules; no node or subscription data.
+DOMAIN-SUFFIX,metaaivm.com,PROXY
+DOMAIN-SUFFIX,meta.ai,PROXY
+DOMAIN-SUFFIX,ai.meta.com,PROXY

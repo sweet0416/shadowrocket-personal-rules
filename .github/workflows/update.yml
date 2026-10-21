@@ -1,0 +1,55 @@
+name: Update personal configuration
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 */6 * * *'
+  push:
+    branches: [main]
+    paths:
+      - custom_rules.txt
+      - 'scripts/**'
+      - 'tests/**'
+      - .github/workflows/update.yml
+permissions:
+  contents: read
+concurrency:
+  group: personal-config-publish
+  cancel-in-progress: false
+jobs:
+  publish:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.13'
+      - name: Test
+        run: python -m unittest discover -s tests -v
+      - name: Build
+        run: python scripts/build_config.py
+      - name: Publish changed artifact only
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- dist/shadowrocket_personal.conf
+          if git diff --cached --quiet; then
+            echo 'Publication: unchanged; validation succeeded.' >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          git commit -m 'Update personal Shadowrocket configuration'
+          # A conflicting remote advance fails explicitly; never force-push or rebase stale inputs.
+          git push origin HEAD:main
+          echo "Publication: updated at $(git rev-parse HEAD)." >> "$GITHUB_STEP_SUMMARY"
+      - name: Failure summary
+        if: failure()
+        run: |
+          echo 'FAILED: see the failed step log for the exact reason (test, download/validation, or push conflict). No force push; last published artifact retained if publication failed.' >> "$GITHUB_STEP_SUMMARY"

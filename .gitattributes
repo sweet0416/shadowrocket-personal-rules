@@ -1,0 +1,5 @@
+dist/*.conf -text
+LICENSE-UPSTREAM -text
+*.py text eol=lf
+*.yml text eol=lf
+*.md text eol=lf
