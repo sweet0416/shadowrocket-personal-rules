@@ -2,3 +2,12 @@
 DOMAIN-SUFFIX,metaaivm.com,PROXY
 DOMAIN-SUFFIX,meta.ai,PROXY
 DOMAIN-SUFFIX,ai.meta.com,PROXY
+
+# Grok Bot: official client API, assets, hosted computers, sign-in and updates.
+# https://docs.x.ai/grok-bot/proxies
+DOMAIN-SUFFIX,cursor.sh,PROXY
+DOMAIN-SUFFIX,cursor-cdn.com,PROXY
+DOMAIN-SUFFIX,cursorapi.com,PROXY
+DOMAIN-SUFFIX,cursorvm.com,PROXY
+DOMAIN-SUFFIX,cursor.com,PROXY
+DOMAIN-SUFFIX,x.ai,PROXY
