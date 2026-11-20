@@ -22,6 +22,13 @@ DOMAIN-SUFFIX,cursorvm.com,PROXY
 DOMAIN-SUFFIX,cursor.com,PROXY
 DOMAIN-SUFFIX,x.ai,PROXY
 DOMAIN-SUFFIX,grok.com,PROXY
+DOMAIN-SUFFIX,spacex.ai,PROXY
+DOMAIN-SUFFIX,spacexsi.com,PROXY
+DOMAIN-SUFFIX,grokusercontent.com,PROXY
+DOMAIN-SUFFIX,grok-sandbox.com,PROXY
+DOMAIN-SUFFIX,groktpcontent.com,PROXY
+DOMAIN-SUFFIX,hcaptcha.com,PROXY
+DOMAIN,challenges.cloudflare.com,PROXY
 ```
 
 `metaaivm.com` 是此前实际排障确认的关键域名；另外两条是原有保留项，不声称都已证明是 Muse 必需接口。不扩展其他 Meta/Facebook 域名。
@@ -29,6 +36,10 @@ DOMAIN-SUFFIX,grok.com,PROXY
 Grok Bot 规则依据 [官方客户端域名清单](https://docs.x.ai/grok-bot/proxies)：`cursor.sh` 用于聊天、登录和审批，`cursor-cdn.com` 用于静态资源，`cursorapi.com` 用于扩展市场及相关 API，`cursorvm.com` 用于云电脑连接，`cursor.com` 包含登录、安装和更新所需的子域名（含 `downloads.cursor.com`）。另按 [官方登录排障说明](https://docs.x.ai/grok-bot/troubleshooting) 加入 `x.ai` 登录入口。Shadowrocket 的 `DOMAIN-SUFFIX,cursorvm.com` 覆盖多级子域名，无需添加星号规则。此清单用于将这些连接统一交给现有 `PROXY` 策略，不代表逐个域名已实测直连受阻；手机登录、聊天及云电脑连接仍待实测。客户端规则不会改变 Bot 云电脑自身的网络出口。
 
 另加入 `DOMAIN-SUFFIX,grok.com,PROXY`，覆盖 [Grok 网页主站](https://docs.x.ai/grok/faq)及其子域名，作为普通 Grok 服务的个人代理规则，与上述 Grok Bot 客户端规则一并保留。
+
+2026-11-20 补查：[xAI 登录域名清单](https://docs.x.ai/x-subscription/sign-in-domains)列出 `spacex.ai`，[Cursor 登录域名清单](https://cursor.com/help/troubleshooting/sign-in-domains)列出 `spacexsi.com`，两份官方文档不同，兼容保留两者及其子域名；`grokusercontent.com` 同时出现在登录清单与 Grok 网页内容资源中。匿名读取 [Grok 官网](https://grok.com/) 的页面和 Content-Security-Policy，确认 `assets.grokusercontent.com`、`artifacts.grokusercontent.com`、`mcp-sandbox.grokusercontent.com`、`*.grok-sandbox.com`、`groktpcontent.com`、`hcaptcha.com` / `*.hcaptcha.com`、`challenges.cloudflare.com` 为页面声明允许使用的资源、预览或验证目标，因此加入个人规则以保持代理出口一致；CSP 允许不代表每次访问都会请求，也不证明每项功能都依赖它们。Cloudflare 仅添加验证服务的精确域名。
+
+已有 `grok.com` / `x.ai` 后缀规则覆盖 `cdn.grok.com`、`assets.grok.com`、`auth.grok.com`、`accounts.x.ai`、`auth.x.ai`、`api.x.ai`、`media.x.ai` 和 `imagine-public.x.ai`。当前完整上游还覆盖 `grokipedia.com`（含共享登录的 `auth.grokipedia.com`）、`x.com`、`twitter.com`、`twimg.com`、`t.co`、`google.com`、`gstatic.com`、`amazonaws.com`，不重复加入；AWS 桶包括 Cursor 网络文档中的更新及文件同步桶。未扩大到整个 Cloudflare、Azure 或所有第三方支付、统计及连接器域名；Cursor 编辑器的 Windows Remote SSH 下载也不作为 Grok Bot 必需项。此为官方清单和公开网页的静态覆盖检查，不是登录态抓包或语音、视频、云电脑的运行验收。
 
 ## 构建约束
 

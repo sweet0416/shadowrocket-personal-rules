@@ -14,3 +14,16 @@ DOMAIN-SUFFIX,x.ai,PROXY
 
 # Grok website and its subdomains.
 DOMAIN-SUFFIX,grok.com,PROXY
+
+# Shared sign-in: both official domain lists are retained during migration.
+# https://docs.x.ai/x-subscription/sign-in-domains
+# https://cursor.com/help/troubleshooting/sign-in-domains
+DOMAIN-SUFFIX,spacex.ai,PROXY
+DOMAIN-SUFFIX,spacexsi.com,PROXY
+
+# Grok content, previews and verification hosts declared by https://grok.com/.
+DOMAIN-SUFFIX,grokusercontent.com,PROXY
+DOMAIN-SUFFIX,grok-sandbox.com,PROXY
+DOMAIN-SUFFIX,groktpcontent.com,PROXY
+DOMAIN-SUFFIX,hcaptcha.com,PROXY
+DOMAIN,challenges.cloudflare.com,PROXY
