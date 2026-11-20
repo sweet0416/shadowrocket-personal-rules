@@ -21,11 +21,14 @@ DOMAIN-SUFFIX,cursorapi.com,PROXY
 DOMAIN-SUFFIX,cursorvm.com,PROXY
 DOMAIN-SUFFIX,cursor.com,PROXY
 DOMAIN-SUFFIX,x.ai,PROXY
+DOMAIN-SUFFIX,grok.com,PROXY
 ```
 
 `metaaivm.com` 是此前实际排障确认的关键域名；另外两条是原有保留项，不声称都已证明是 Muse 必需接口。不扩展其他 Meta/Facebook 域名。
 
 Grok Bot 规则依据 [官方客户端域名清单](https://docs.x.ai/grok-bot/proxies)：`cursor.sh` 用于聊天、登录和审批，`cursor-cdn.com` 用于静态资源，`cursorapi.com` 用于扩展市场及相关 API，`cursorvm.com` 用于云电脑连接，`cursor.com` 包含登录、安装和更新所需的子域名（含 `downloads.cursor.com`）。另按 [官方登录排障说明](https://docs.x.ai/grok-bot/troubleshooting) 加入 `x.ai` 登录入口。Shadowrocket 的 `DOMAIN-SUFFIX,cursorvm.com` 覆盖多级子域名，无需添加星号规则。此清单用于将这些连接统一交给现有 `PROXY` 策略，不代表逐个域名已实测直连受阻；手机登录、聊天及云电脑连接仍待实测。客户端规则不会改变 Bot 云电脑自身的网络出口。
+
+另加入 `DOMAIN-SUFFIX,grok.com,PROXY`，覆盖 [Grok 网页主站](https://docs.x.ai/grok/faq)及其子域名，作为普通 Grok 服务的个人代理规则，与上述 Grok Bot 客户端规则一并保留。
 
 ## 构建约束
 

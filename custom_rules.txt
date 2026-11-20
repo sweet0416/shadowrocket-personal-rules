@@ -11,3 +11,6 @@ DOMAIN-SUFFIX,cursorapi.com,PROXY
 DOMAIN-SUFFIX,cursorvm.com,PROXY
 DOMAIN-SUFFIX,cursor.com,PROXY
 DOMAIN-SUFFIX,x.ai,PROXY
+
+# Grok website and its subdomains.
+DOMAIN-SUFFIX,grok.com,PROXY
